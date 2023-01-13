@@ -100,3 +100,22 @@ You are required to submit BOTH of the following for review:
 
 - - -
 © 2022 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
+
+
+Creating a weather dashboard that displays the forecast for the next 5 days for a specific city requires several steps:
+
+Obtain an API key from a weather service, such as OpenWeatherMap, that provides weather data in a format that can be easily consumed by your application.
+
+Use a programming language, such as Python or JavaScript, to build the dashboard.
+
+Use the API key to make requests to the weather service's API to retrieve the weather data for the city that the user has searched for.
+
+Parse the data and display it in a visually appealing format on the dashboard.
+
+Allow the user to search for different cities and update the dashboard with the new data accordingly.
+
+Optionally you can add features like "current weather","3 hours weather forecast" etc, this will be depends on the data provided by the API.
+
+Use frameworks and libraries like React, Angular, and Vue.js, to create interactive and dynamic web applications.
+
+It's important to note that this is a high-level overview and there are many specific details and considerations that need to be taken into account when building a weather dashboard.
