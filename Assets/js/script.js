@@ -6,6 +6,9 @@ let weather = {
             "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric&appid=" + this.apiKey)
             .then((response) => response.json())
             .then((data) => this.displayWeather(data));
+        fetch("https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=metric&cnt=5&appid=" + this.apiKey)
+            .then((response) => response.json())
+            .then((data) => this.displayForecast(data));
     },
     displayWeather: function(data) {
 
@@ -25,11 +28,48 @@ let weather = {
         document.querySelector(".description").innerText = description;
         document.querySelector(".humidity").innerText = "humidity " + humidity + "%";
         document.querySelector(".wind").innerText = "Wind speed: " + speed +"km/h";
+        
+        // Saving the data to local storage
+        localStorage.setItem(name, JSON.stringify(data));
     },
 
-    // Function making whats typed in the search bar to pull the city info available from the API
-    search: function (){
-        this.fetchWeather(document.querySelector(".search-bar").value);
+    displayForecast: function(data) {
+        // Get the forecast container element
+        let forecast = document.getElementById("forecast");
+    
+        // Clear the container element to remove any existing forecast data
+        forecast.innerHTML = "";
+    
+        // Loop through the forecast data and extract the relevant information
+        for(let i = 0; i < data.list.length; i++) {
+            let date = new Date(data.list[i].dt * 1000);
+            let formattedDate = date.toLocaleDateString();
+            let temperature = data.list[i].main.temp;
+            let humidity = data.list[i].main.humidity;
+            let description = data.list[i].weather[0].description;
+            let icon = data.list[i].weather[0].icon;
+    
+            // Create a new element to display the forecast information
+            let forecastItem = document.createElement("div");
+            forecastItem.classList.add("forecast-item");
+            forecastItem.innerHTML = 
+                "<div class='day'>" + formattedDate + "</div>" + 
+                "<div class='icon'><img src='http://openweathermap.org/img/w/" + icon + ".png' alt='weather icon'></div>" +
+                "<div class='temp'>" + temperature + "°C</div>" + 
+                "<div class='humidity'>" + humidity + "%</div>" + 
+                "<div class='description'>" + description + "</div>";
+                
+                // Append the forecast item to the forecast container
+                forecast.appendChild(forecastItem);
+            }
+        },
+        
+        // Function making whats typed in the search bar to pull the city info available from the API
+        search: function (){
+            this.fetchWeather(document.querySelector(".search-bar").value);
+            let city = document.querySelector(".search-bar").value;
+            let history = document.getElementById("history");
+            history.innerHTML += "<li>" + city + "</li>";
     }
 };
 
