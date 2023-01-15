@@ -9,6 +9,12 @@ body {
     font-size: 120%;
 }
 
+#container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .card {
     background: #eaeaea;
     color: black;
@@ -58,4 +64,48 @@ input.search-bar:hover {
 
 h1.temp {
     margin: 0;
+}
+
+.icon, .description, .humidity, .wind {
+    font-size: 27px;
+}
+
+.forecast-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    color: white;
+    margin-top: 50px;
+}
+
+.forecast-item {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+    text-align: center;
+    font-size: 25px;
+}
+
+.header {
+    top: -20px;
+    left: 0;
+    right: 0;
+}
+
+.search-history {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    font-size: 30px;
+    margin-right: 10px;
+}
+
+.search-history li {
+    list-style-type: none;
+    margin-right: 10px;
+    text-align: right;
+    font-size: 25px;
 }
