@@ -43,7 +43,19 @@ let weather = {
         // Loop through the forecast data and extract the relevant information
         for(let i = 0; i < data.list.length; i++) {
             let date = new Date(data.list[i].dt * 1000);
-            let formattedDate = date.toLocaleDateString();
+            let formattedDate = date.toLocaleDateString("en-AU", {
+                weekday: "short",
+                year: "numeric",
+                month: "numeric",
+                day: "numeric"
+            });
+            let formattedTime = date.toLocaleTimeString("en-US", {
+                hour: "2-digit",
+                minute: "2-digit"
+            });
+            
+            console.log(formattedDate + ", " + formattedTime);
+            
             let temperature = data.list[i].main.temp;
             let humidity = data.list[i].main.humidity;
             let description = data.list[i].weather[0].description;
@@ -53,7 +65,7 @@ let weather = {
             let forecastItem = document.createElement("div");
             forecastItem.classList.add("forecast-item");
             forecastItem.innerHTML = 
-                "<div class='day'>" + formattedDate + "</div>" + 
+                "<div class='day'>" + formattedDate + "<br>" + formattedTime +"</div>" + 
                 "<div class='icon'><img src='http://openweathermap.org/img/w/" + icon + ".png' alt='weather icon'></div>" +
                 "<div class='temp'>" + temperature + "°C</div>" + 
                 "<div class='humidity'>" + humidity + "%</div>" + 
@@ -72,6 +84,15 @@ let weather = {
             history.innerHTML += "<li>" + city + "</li>";
     }
 };
+
+const searchHistoryList = document.querySelector('#history');
+
+searchHistoryList.addEventListener('click', function(event) {
+    if(event.target.tagName === "LI") {
+        let city = event.target.innerText;
+        weather.fetchWeather(city);
+    }
+});
 
 // Making it when the button is clicked, the search funtion fires
 document.querySelector(".search button").addEventListener("click", function (){
